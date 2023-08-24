@@ -19,11 +19,11 @@ Este plugin permite una integración fluida entre WooCommerce y la API de AdComb
 
 ### Configuración en `wp-config.php`:
 
-\```php
+```php
 define( 'ADCOMBO_API_URL', '[URL DE LA API]' ); // Ejemplo: "https://api.adcombo.com/api/v2/"
 define( 'ADCOMBO_API_KEY', '[TU API KEY]' );
 define( 'ADCOMBO_TEST_MODE', true ); // Establece en "true" para modo de prueba, "false" para producción.
-\```
+```
 
 ## Uso 🚀
 
