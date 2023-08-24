@@ -1,33 +1,38 @@
 # WooCommerce AdCombo Integration Plugin
 
-## Descripción
+## Descripción 📌
 
-Este plugin integra WooCommerce con la API de AdCombo, permitiendo enviar automáticamente datos de pedidos a AdCombo cuando un pedido cambia su estado a "Procesando". Además, el plugin maneja las respuestas de la API de AdCombo, actualizando el estado del pedido y añadiendo notas relevantes.
+Este plugin permite una integración fluida entre WooCommerce y la API de AdCombo. Con él, los datos de los pedidos se envían automáticamente a AdCombo tan pronto como un pedido cambie su estado a "Procesando". Además, el plugin se encarga de interpretar y actuar según las respuestas de la API de AdCombo, proporcionando actualizaciones de estado y notas detalladas en los pedidos.
 
-## Características
+## Características 🌟
 
-- **Envío automático de pedidos a AdCombo**: Cuando un pedido cambia su estado a "Procesando", los datos del pedido se envían automáticamente a AdCombo.
-  
-- **Manejo de respuestas de la API**: El plugin maneja tanto respuestas exitosas como errores de la API de AdCombo, y actualiza el estado del pedido en consecuencia.
-  
-- **Notas del pedido**: Se añaden notas detalladas al pedido en WooCommerce basadas en la respuesta de la API de AdCombo. Esto incluye mensajes de éxito, errores y advertencias.
-  
-- **Campos personalizados**: El ID del pedido de AdCombo se guarda como un campo personalizado en el pedido de WooCommerce, permitiendo una fácil referencia y seguimiento.
+- **Envío Automatizado a AdCombo**: Los pedidos se sincronizan con AdCombo automáticamente cuando su estado se actualiza a "Procesando".
+- **Gestión Inteligente de Respuestas**: El plugin interpreta las respuestas, ya sean exitosas o contengan errores, y actúa en consecuencia.
+- **Notas Detalladas en Pedidos**: Cada respuesta de la API se refleja en las notas del pedido, incluyendo mensajes de éxito, errores y advertencias.
+- **Soporte para Pedidos Múltiples**: Si un pedido contiene varios productos, el plugin realiza múltiples llamadas a la API, asegurando que cada producto se procese adecuadamente.
 
-## Instalación
+## Instalación 🔧
 
-1. Clona o descarga el repositorio en tu directorio de plugins de WordPress (`wp-content/plugins/`).
-2. Activa el plugin desde el panel de administración de WordPress.
-3. Asegúrate de configurar las opciones necesarias, como la clave API, en la página de configuración del plugin.
+1. **Descarga y Ubicación**: Clona o descarga este repositorio en tu directorio `wp-content/plugins/` de WordPress.
+2. **Activación**: Desde el panel de administración de WordPress, busca el plugin y actívalo.
+3. **Configuración**: Define las variables de entorno en tu archivo `wp-config.php`.
 
-## Uso
+### Configuración en `wp-config.php`:
 
-Una vez instalado y activado, el plugin trabajará automáticamente al detectar cambios de estado en los pedidos de WooCommerce. No es necesario realizar ninguna acción manual para enviar datos a AdCombo.
+\```php
+define( 'ADCOMBO_API_URL', '[URL DE LA API]' ); // Ejemplo: "https://api.adcombo.com/api/v2/"
+define( 'ADCOMBO_API_KEY', '[TU API KEY]' );
+define( 'ADCOMBO_TEST_MODE', true ); // Establece en "true" para modo de prueba, "false" para producción.
+\```
 
-## Contribuciones
+## Uso 🚀
 
-Las contribuciones son bienvenidas. Por favor, crea un "issue" para reportar errores o propuestas, y considera hacer un "pull request" si deseas contribuir con código.
+Después de la instalación y configuración, el plugin se pone en marcha automáticamente. Detectará cambios de estado en los pedidos de WooCommerce y actuará en consecuencia, sin necesidad de intervención manual.
 
-## Licencia
+## Contribuciones 🤝
 
-Este plugin está licenciado bajo la licencia GPL v2 o posterior.
+¡Tu ayuda es bienvenida! Si encuentras errores o tienes sugerencias, por favor, crea un "issue". Si estás dispuesto a contribuir con código, considera hacer un "pull request".
+
+## Licencia 📜
+
+Este plugin está bajo la licencia GPL v2 o posterior.

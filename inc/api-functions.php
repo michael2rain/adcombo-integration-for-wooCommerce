@@ -7,7 +7,13 @@
  * @return array|WP_Error Respuesta de la API o un error.
  */
 function send_data_to_adcombo_api( $order_data ) {
-    $api_url = 'https://5a4b5db0-14ad-4f8b-8ed4-3654c894be2e.mock.pstmn.io/order/create/';
+    // Verificar si la constante ADCOMBO_API_URL está definida
+    if (!defined('ADCOMBO_API_URL')) {
+        error_log('Error: La constante ADCOMBO_API_URL no está definida.');
+        return new WP_Error('undefined_constant', 'La constante ADCOMBO_API_URL no está definida.');
+    }
+
+    $api_url = ADCOMBO_API_URL . "order/create/";  // Usar la constante ADCOMBO_API_URL
 
     // Convertir los datos del pedido en una cadena de consulta para la solicitud GET
     $query_string = http_build_query( $order_data );
