@@ -10,22 +10,11 @@
 function get_order_data_for_adcombo( $order, $item ) {
     $product = $item->get_product();
 
-    // Obtener el valor del campo personalizado offer_id_adcombo del producto
     $offer_id = get_post_meta( $product->get_id(), 'offer_id_adcombo', true );
-
-    // Obtener el código del país del campo billing_country del pedido
     $country_code = $order->get_billing_country();
-
-    // URL del sitio web
     $base_url = get_site_url();
-
-    // Precio del producto (precio de oferta si existe, de lo contrario precio normal)
     $price = $product->get_sale_price() ? $product->get_sale_price() : $product->get_regular_price();
-
-    // URL pública del producto en la tienda
     $referrer = get_permalink( $product->get_id() );
-
-    // IP del usuario
     $ip = $_SERVER['REMOTE_ADDR'];
 
     // Construir la dirección en el formato que AdCombo espera

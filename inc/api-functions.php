@@ -7,13 +7,22 @@
  * @return array|WP_Error Respuesta de la API o un error.
  */
 function send_data_to_adcombo_api( $order_data ) {
-    // Verificar si la constante ADCOMBO_API_URL está definida
-    if (!defined('ADCOMBO_API_URL')) {
-        error_log('Error: La constante ADCOMBO_API_URL no está definida.');
-        return new WP_Error('undefined_constant', 'La constante ADCOMBO_API_URL no está definida.');
+    // Obtener la URL de la API de AdCombo desde la opción guardada
+    $api_url_option = get_option('adcombo_api_url', '');
+
+    // Verificar si la URL está vacía
+    if (empty($api_url_option)) {
+        error_log('Error: La URL de la API de AdCombo no está configurada.');
+        return new WP_Error('empty_url', 'La URL de la API de AdCombo no está configurada.');
     }
 
-    $api_url = ADCOMBO_API_URL . "order/create/";  // Usar la constante ADCOMBO_API_URL
+    // Verificar si la URL es válida
+    if (filter_var($api_url_option, FILTER_VALIDATE_URL) === false) {
+        error_log('Error: La URL de la API de AdCombo no es válida.');
+        return new WP_Error('invalid_url', 'La URL de la API de AdCombo no es válida.');
+    }
+
+    $api_url = trailingslashit($api_url_option) . "order/create/";  // Asegurarse de que la URL termine con una barra
 
     // Convertir los datos del pedido en una cadena de consulta para la solicitud GET
     $query_string = http_build_query( $order_data );
@@ -68,7 +77,7 @@ function handle_adcombo_api_response( $response, $order, $product ) {
         $note_message .= "- Goods ID: " . $data['goods_id'] . "\n";
         $note_message .= "- Esub: " . $data['esub'] . "\n";
         if (isset($data['warning']) && is_array($data['warning'])) {
-            $note_message .= "- Advertencias: " . implode(", ", $data['warning']) . "\n";
+            $note_message .= "\n --- \n <strong>Advertencias:</strong>" . implode(", ", $data['warning']) . "\n";
         }
 
         $order->add_order_note($note_message);  // Agregar nota al pedido con todos los datos
