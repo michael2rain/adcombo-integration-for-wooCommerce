@@ -25,12 +25,6 @@ if (!defined('ADCOMBO_API_KEY')) {
     return; // Termina la ejecución del plugin si la constante no está definida
 }
 
-// Activar modo de pruebas por defecto
-function adcombo_activate_plugin() {
-    add_option('adcombo_test_mode', '0');
-}
-register_activation_hook(__FILE__, 'adcombo_activate_plugin');
-
 /**
  * Función principal que se engancha al cambio de estado del pedido a "Procesando".
  *

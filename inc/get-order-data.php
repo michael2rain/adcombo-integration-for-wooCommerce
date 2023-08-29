@@ -41,6 +41,6 @@ function get_order_data_for_adcombo( $order, $item ) {
         'address'       => json_encode($address),
         'email'         => $order->get_billing_email(),
         'quantity'      => $item->get_quantity(),
-        'test'          => $adcombo_test_mode === '1' ? 'false' : 'true',
+        'test'          => $adcombo_test_mode === '1' ? 'true' : 'false',
     );
 }
