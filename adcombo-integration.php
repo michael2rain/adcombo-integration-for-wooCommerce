@@ -4,7 +4,7 @@
  * Plugin Name: AdCombo Integration for WooCommerce
  * Plugin URI: https://naturista.express/
  * Description: Integra WooCommerce con la API de AdCombo.
- * Version: 1.0.4
+ * Version: 1.0.5
  * Author: Naturista Express Developers
  * Author URI: https://naturista.express/
  * License: GPL2
