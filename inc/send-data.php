@@ -22,7 +22,16 @@ function send_data_to_adcombo_api( $order_data ) {
     $api_url = trailingslashit($api_url_option) . "order/create/";
     $query_string = http_build_query( $order_data );
 
-    return wp_remote_get( $api_url . '?' . $query_string );
+    $response = wp_remote_get( $api_url . '?' . $query_string );
+
+    // Verificar el código de estado HTTP
+    $http_code = wp_remote_retrieve_response_code($response);
+    if ($http_code != 200 && $http_code != 201) {  // Aceptar tanto 200 como 201 como códigos de éxito
+        error_log("Error HTTP al enviar datos a AdCombo: Código $http_code");
+        return new WP_Error('http_error', "Error HTTP: $http_code");
+    }
+
+    return $response;
 }
 
 /**
@@ -32,6 +41,7 @@ function send_data_to_adcombo_api( $order_data ) {
  * @param WC_Order $order Objeto del pedido de WooCommerce.
  * @param WC_Product $product Producto actual de WooCommerce.
  */
+
 function handle_adcombo_api_response( $response, $order, $product ) {
     $order_id = $order->get_id();
     $product_name = $product->get_name();
