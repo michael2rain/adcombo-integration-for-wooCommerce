@@ -1,17 +1,6 @@
 <?php
 
 /**
- * Notificación: Entorno de pruebas activado
- */
-if (get_option('adcombo_test_mode', false)) {
-    add_action('admin_notices', function() {
-        $class = 'notice notice-warning';
-        $message = 'Estás trabajando en un entorno de pruebas para la integración de AdCombo. Se indicará a AdCombo que los leads que reciba son de prueba.';
-        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
-    });
-}
-
-/**
  * Página de configuración
  */
 function adcombo_register_settings() {
@@ -35,19 +24,12 @@ function adcombo_settings_section_callback() {
 // Callback para el campo de la URL
 function adcombo_api_url_field_callback() {
     $adcombo_api_url = esc_attr(get_option('adcombo_api_url', ''));
-
-    // Verificar si la URL termina con un "/"
-    if (substr($adcombo_api_url, -1) === '/') {
-        $adcombo_api_url = rtrim($adcombo_api_url, '/');  // Elimina el "/" al final
-        update_option('adcombo_api_url', $adcombo_api_url);  // Actualiza la opción con la URL corregida
-    }
-
     echo "<input type='url' name='adcombo_api_url' value='$adcombo_api_url' class='regular-text' />";
 }
 
 function adcombo_test_mode_field_callback() {
     $adcombo_test_mode = get_option('adcombo_test_mode', '1');  // Usa '1' como valor predeterminado
-    $checked = $adcombo_test_mode ? 'checked' : '';
+    $checked = $adcombo_test_mode === '1' ? 'checked' : '';
     echo "<label><input type='checkbox' name='adcombo_test_mode' value='1' $checked /> Activar modo de prueba</label>";
 }
 
@@ -75,3 +57,14 @@ function adcombo_settings_page_content() {
 // Engancha las funciones al cargar WordPress
 add_action('admin_init', 'adcombo_register_settings');
 add_action('admin_menu', 'adcombo_create_settings_page');
+
+/**
+ * Notificación: Entorno de pruebas activado
+ */
+if (get_option('adcombo_test_mode', '0') === '1') {
+    add_action('admin_notices', function() {
+        $class = 'notice notice-warning';
+        $message = 'Estás trabajando en un entorno de pruebas para la integración de AdCombo. Se indicará a AdCombo que los leads que reciba son de prueba.';
+        printf('<div class="%1$s"><p>%2$s</p></div>', esc_attr($class), esc_html($message));
+    });
+}

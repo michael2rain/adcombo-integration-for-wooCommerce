@@ -26,8 +26,8 @@ function get_order_data_for_adcombo( $order, $item ) {
         'postcode'      => $order->get_billing_postcode(),
     );
 
+    $adcombo_test_mode = get_option('adcombo_test_mode', '0');
     return array(
-        // Requiered parameters:
         'api_key'       => ADCOMBO_API_KEY,
         'name'          => $order->get_billing_first_name() . ' ' . $order->get_billing_last_name(),
         'phone'         => $order->get_billing_phone(),
@@ -37,12 +37,10 @@ function get_order_data_for_adcombo( $order, $item ) {
         'price'         => $price,
         'referrer'      => $referrer,
         'ip'            => $ip,
-        // Extra parameters:
         'ext_in_id'     => $order->get_id(),
-        'address'       => json_encode($address), // Codificar la dirección como JSON
+        'address'       => json_encode($address),
         'email'         => $order->get_billing_email(),
         'quantity'      => $item->get_quantity(),
-        // Envío de prueba
-        'test'          => defined('ADCOMBO_TEST_MODE') && ADCOMBO_TEST_MODE ? 'true' : 'false',
+        'test'          => $adcombo_test_mode === '1' ? 'false' : 'true',
     );
 }
